@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# vim: noai:ts=4:sw=4:expandtab
+
+set -e
+
+tool_root=$(cd $(dirname $0) && pwd)
+
+source "${tool_root}/lib/vars.sh"
+
+source "${tool_root}/lib/utils/io.sh"
+
+source "${tool_root}/lib/confman/conf.sh"
+source "${tool_root}/lib/confman/cache.sh"
+source "${tool_root}/lib/confman/core.sh"
+source "${tool_root}/lib/confman/usage.sh"
+source "${tool_root}/lib/confman/commands.sh"
+
+# echo $(__confman::core::target_conf_dirs)
+
+__confman::core::exec $@
+
+# source "${tool_root}/lib/util.sh"
+# source "${tool_root}/lib/init.sh"
+# source "${tool_root}/lib/vars.sh"
+
+# core::get_target_dir() {
+#     local candidate_dirs=($(find ${CONFMAN_TARGET_DIR} -type d -depth 1))
+#     local result_dirs=()
+#     for dir in "${candidate_dirs[@]}"
+#     do
+#         if [ -f "${dir}/${CONFMAN_TASK_FILE}" ]; then
+#             result_dirs=(${result_dirs} ${dir})
+#         fi
+#     done
+#     echo ${result_dirs[@]}
+# }
+
+# declare -A flags
+# declare sub_command=""
+
+# for arg in "$@"
+# do
+#     case "${arg}" in
+#         -* | --*)
+#             dbg "option: ${arg}"
+#             name=$(echo "${arg}" | sed -E 's/-//g')
+#             flags["${name}"]=1
+#             ;;
+#         install | update | clean | check)
+#             dbg "task: ${arg}"
+#             sub_command=${arg}
+#             ;;
+#         *)
+#             dbg "target: ${arg}"
+#             ;;
+#     esac
+# done
+
+# if [ ${flags["help"]} ]; then
+#     usage
+#     exit 1
+# fi
+
+# if [ ! -z ${sub_command} ]; then
+#     core::exec_${sub_command}
+# fi
